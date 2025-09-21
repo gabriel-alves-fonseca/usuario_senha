@@ -38,18 +38,24 @@ while True:
         busca_user = input('Selecione o nome de usuário que você quer alterar a senha: ')
         
         while True:
-            if not busca_user in login_user:
+            if not busca_user in dados_user:
                 busca_user = input('Nome de usuário não encontrado. Tente novamente: ')
             else:
                 senha_atual = input(f'Usuário {busca_user} encontrado. Digite agora a senha atual: ')
-                while busca_user == login_user:
-                    if senha_atual == senha_user in {login_user:senha_user}:
+                
+                while tentativas_troca_senha > 0:
+                    if senha_atual == dados_user[busca_user]:
                         nova_senha = input('Senha e login aceitos. Agora digite a nova senha para seu usuário (mínimo 4 caracteres): ')
-                        if len(nova_senha) < 4:
-                            nova_senha = input('Senha precisa ter 4 caracteres os mais: ')
-                        else:
-                            print('Nova senha salva com sucesso')
-                    
+                        while True:
+                            if len(nova_senha) < 4:
+                                nova_senha = input('Senha precisa ter 4 caracteres os mais: ')
+                            
+                            
+                            
+                            
+                            else:
+                                print('Nova senha salva com sucesso')
+                                break
                     else:
                         tentativas_troca_senha -= 1
                         senha_atual = input(f'Senha incorreta para o usuário. Você ainda tem {tentativas_troca_senha} tentativas. Tente novamente: ')
