@@ -1,69 +1,71 @@
-tentativas_troca_senha = 3
+print('-- Bem vindo ao sistema de senhas --')
 dados_user = {}
+tentativas = 3
 
 
-print('Seja bem vindo ao sistema de login e senha')
+
+
 while True:
-    escolha = input('Selecione uma opção:\n'
-    '1 - Para criar um novo usuário\n'
-    '2 - Para alterar senha de usuário existente\n'
-    '0 - Para sair')
-    if escolha not in ['0', '1', '2']:
-        escolha_novamente = input('Selecione uma opção válida:\n'
-        '1 - Para criar um novo usuário\n'
-        '2 - Para alterar senha de usuário existente\n'
-        '0 - Para sair')
+    escolha = input ('1 - Cadastrar novo usuário\n' \
+      '2 - Alterar senha de usuário cadastrado\n' \
+      '0 - Sair\n' \
+      'Escolha sua opção:')
+    if escolha not in ['0','1','2']:
+        escolha = input('Opção inválida.\n' \
+        '1 - Cadastrar novo usuário\n' \
+        '2 - Alterar senha de usuário cadastrado\n' \
+        '0 - Sair\n' \
+        'Escolha sua opção: ')
     elif escolha == '0':
-        print('Saindo... Obrigado por acessar nosso sistema')
+        print('Saindo... Obrigado por usar nosso sistema')
         break
+    
     elif escolha == '1':
         login_user = input('Insira seu nome de usuário: ')
         while True:
-            if not login_user.isalpha() or len(login_user) < 5:
-                login_user= input('Insira apenas letras para o seu nome de usuário e no mínimo 5 caracteres: ')
+            if len(login_user) < 4 or not login_user.isalpha():
+                login_user = input('Tente novamente. Nome de usuário deve ter 5 caracteres ou mais e deve ser apenas letras: ')
             else:
-                print(f'Nome de usuário aceito: {login_user}')
+                print(f'Usuário {login_user} criado com sucesso!')
                 break
-            
-        senha_user = input('Insira sua senha de usuário (mínimo 4 caracteres): ')
+        senha_user = input('Insira agora a senha do usuário: ')
         while True:
-            if len(senha_user) < 4:
-                senha_user= input('Sua senha precisa ter pelo menos 4 caracteres: ')
+            if not len(senha_user) >=4:
+                senha_user = input('Senha muito curta. Deve ter no mínimo 4 caracteres. Tente novamente: ')
             else:
+                dados_user [login_user] = senha_user
                 print('Senha salva com sucesso')
                 break
-        dados_user[login_user] = senha_user
-
+    
     elif escolha == '2':
-        busca_user = input('Selecione o nome de usuário que você quer alterar a senha: ')
+        
+        busca_user = input('Para realizar a troca de senha, você deve fornecer o nome de usuário cadastrado: ')
         
         while True:
-            if not busca_user in dados_user:
+            if busca_user not in dados_user:
                 busca_user = input('Nome de usuário não encontrado. Tente novamente: ')
             else:
-                senha_atual = input(f'Usuário {busca_user} encontrado. Digite agora a senha atual: ')
-                
-                while tentativas_troca_senha > 0:
-                    if senha_atual == dados_user[busca_user]:
-                        nova_senha = input('Senha e login aceitos. Agora digite a nova senha para seu usuário (mínimo 4 caracteres): ')
-                        while True:
-                            if len(nova_senha) < 4:
-                                nova_senha = input('Senha precisa ter 4 caracteres os mais: ')
-                            
-                            
-                            
-                            
-                            else:
-                                print('Nova senha salva com sucesso')
-                                break
-                    else:
-                        tentativas_troca_senha -= 1
-                        senha_atual = input(f'Senha incorreta para o usuário. Você ainda tem {tentativas_troca_senha} tentativas. Tente novamente: ')
-                        if tentativas_troca_senha < 1:
-                            print('Você excedeu o número de tentativas válidas. Tente novamente mais tarde')
-                            break
-                        
-
-
+                break
+        while tentativas > 0:
+            teste_senha = input('Insira a senha atual do usuário: ')
+            
+            if teste_senha == dados_user[busca_user]:
+                nova_senha = input(f'Insira agora a nova senha para o usuário {busca_user}: ')    
+                while len(nova_senha) < 4:
+                    nova_senha = input('Senha muito curta. Deve possuir no mínimo 4 caracteres. Tente novamente: ')
+            
+                dados_user[busca_user] = nova_senha
+                print('Senha nova cadastrada com sucesso!')
+                break
 
                 
+                
+                
+            else:
+                tentativas -= 1
+                if tentativas >0:   
+                    print(f'Senha inválida. Você tem {tentativas} tentativas restantes.')
+        
+        if tentativas == 0:
+            print('Limite de tentativas excedido. Tente novamente em 30 minutos!')
+
