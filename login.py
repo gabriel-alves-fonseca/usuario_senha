@@ -1,8 +1,5 @@
 print('-- Bem vindo ao sistema de senhas --')
 dados_user = {}
-tentativas = 3
-
-
 
 
 while True:
@@ -46,6 +43,9 @@ while True:
                 busca_user = input('Nome de usuário não encontrado. Tente novamente: ')
             else:
                 break
+
+        tentativas = 3
+        
         while tentativas > 0:
             teste_senha = input('Insira a senha atual do usuário: ')
             
@@ -68,4 +68,5 @@ while True:
         
         if tentativas == 0:
             print('Limite de tentativas excedido. Tente novamente em 30 minutos!')
+
 
